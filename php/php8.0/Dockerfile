@@ -86,6 +86,9 @@ RUN export COMPOSER_MEMORY_LIMIT=-1
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.10.19
 RUN mkdir /usr/local/log
 
+# Cleanup in /var/www folder
+RUN rm -rf /var/www/*
+
 EXPOSE 8080
 
 # Configure a healthcheck to validate that everything is up&running
