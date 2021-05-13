@@ -8,11 +8,11 @@ RUN apk add build-base bash
 RUN apk add nginx supervisor
 
 # Install NGINX, PHP-FPM and Supervisord
-COPY ./deploy-files/nginx/nginx.conf /etc/nginx/nginx.conf
-COPY ./deploy-files/nginx/sites/ /etc/nginx/sites-available
-COPY ./deploy-files/supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-COPY ./deploy-files/php-fpm/www.conf /usr/local/etc/php-fpm.d/www.conf
-COPY ./deploy-files/php-fpm/php.ini /usr/local/etc/php/php.ini
+COPY ./php/php8.0/deploy-files/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY ./php/php8.0/deploy-files/nginx/sites/ /etc/nginx/sites-available
+COPY ./php/php8.0/deploy-files/supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY ./php/php8.0/deploy-files/php-fpm/www.conf /usr/local/etc/php-fpm.d/www.conf
+COPY ./php/php8.0/deploy-files/php-fpm/php.ini /usr/local/etc/php/php.ini
 
 # Install locals
 ENV MUSL_LOCALE_DEPS cmake make musl-dev gcc gettext-dev libintl
