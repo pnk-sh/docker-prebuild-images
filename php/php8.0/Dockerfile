@@ -2,10 +2,17 @@ FROM php:8.0-fpm-alpine
 LABEL maintainer="hi@pnk.dk"
 
 RUN apk update
-RUN apk add build-base
+RUN apk add build-base bash
 
 # Install NGINX
 RUN apk add nginx supervisor
+
+# Install NGINX, PHP-FPM and Supervisord
+COPY ./deploy-files/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY ./deploy-files/nginx/sites/ /etc/nginx/sites-available
+COPY ./deploy-files/supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY ./deploy-files/php-fpm/www.conf /usr/local/etc/php-fpm.d/www.conf
+COPY ./deploy-files/php-fpm/php.ini /usr/local/etc/php/php.ini
 
 # Install locals
 ENV MUSL_LOCALE_DEPS cmake make musl-dev gcc gettext-dev libintl
@@ -75,6 +82,7 @@ RUN docker-php-ext-install pcntl
 RUN docker-php-ext-install opcache && docker-php-ext-enable opcache
 
 # Install composer
+RUN export COMPOSER_MEMORY_LIMIT=-1
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.10.19
 RUN mkdir /usr/local/log
 
