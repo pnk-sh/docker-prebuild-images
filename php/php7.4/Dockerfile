@@ -1,4 +1,4 @@
-FROM php:8.0-fpm-alpine
+FROM php:7.4-fpm-alpine
 LABEL maintainer="hi@pnk.dk"
 
 RUN apk update
@@ -81,13 +81,15 @@ RUN docker-php-ext-install exif
 RUN docker-php-ext-install pcntl
 RUN docker-php-ext-install opcache && docker-php-ext-enable opcache
 
+# Install WP CLI
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+RUN chmod +x wp-cli.phar
+RUN mv wp-cli.phar /usr/local/bin/wp
+RUN wp --info
+
 # Install composer
-RUN export COMPOSER_MEMORY_LIMIT=-1
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.10.19
 RUN mkdir /usr/local/log
-
-# Cleanup in /var/www folder
-RUN rm -rf /var/www/*
 
 EXPOSE 8080
 
