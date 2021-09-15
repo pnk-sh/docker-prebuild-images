@@ -2,7 +2,7 @@ FROM pnksh/php-alpine:php7.4
 LABEL maintainer="hi@pnk.dk"
 
 # Install Node + NPM
-RUN apk add --update node
+RUN apk add npm
 RUN node -v
 
 EXPOSE 8080
