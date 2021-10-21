@@ -1,4 +1,4 @@
-name: redis6 - Update Release
+name: python3.10 - Update Release
 
 env:
   docker_registry: pnksh
