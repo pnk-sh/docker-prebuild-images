@@ -1,4 +1,4 @@
-FROM php:7.2-fpm-buster
+FROM php:7.4-fpm-buster
 LABEL maintainer="hi@pnk.dk"
 
 RUN apt update && apt dist-upgrade -y
@@ -8,8 +8,14 @@ RUN apt install -y \
     g++ \
     libxml2-dev \
     libfreetype6-dev \
+    libwebp-dev \
+    libxpm-dev \
     libjpeg62-turbo-dev \
-    libpng-dev
+    libpng-dev \
+    libonig-dev \
+    libzip-dev \
+    libgd3 \
+    libgd-dev
 
 # Install NGINX
 RUN apt install nginx supervisor -y
@@ -26,7 +32,6 @@ COPY ./php/deploy-files/php-fpm/php.ini /usr/local/etc/php/php.ini
 RUN pecl install -o -f redis \
     &&  rm -rf /tmp/pear \
     &&  echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini
-
 
 # # apcu
 # RUN apk add --update --no-cache --virtual .build-dependencies $PHPIZE_DEPS \
@@ -45,8 +50,13 @@ RUN docker-php-ext-install mysqli pdo_mysql
 RUN docker-php-ext-install zip
 RUN docker-php-ext-install exif
 RUN docker-php-ext-install pcntl
-RUN docker-php-ext-configure gd --with-gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/
+
+RUN docker-php-ext-configure gd \
+    --with-jpeg \
+    --with-freetype
+
 RUN docker-php-ext-install gd
+
 RUN docker-php-ext-install opcache && docker-php-ext-enable opcache
 
 # Install WP CLI
