@@ -1,4 +1,4 @@
-FROM pnksh/php:7.4-buster
+FROM pnksh/php:php7.4-buster
 LABEL maintainer="hi@pnk.dk"
 
 RUN apt install npm -y
