@@ -63,20 +63,20 @@ jobs:
       - name: Push tag ${{ env.docker_tag }} to DockerHub
         run: docker push ${{ env.docker_registry }}/${{ env.docker_repo }}:${{ env.docker_tag }}-buster
   
-  # build-buster-node:
-  #   needs: [build-buster]
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
+  build-buster-node:
+    needs: [build-buster]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
 
-  #     - name: Login to DockerHub
-  #       uses: docker/login-action@v1
-  #       with:
-  #           username: ${{ secrets.DOCKERHUB_USERNAME }}
-  #           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+            username: ${{ secrets.DOCKERHUB_USERNAME }}
+            password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-  #     - name: Build the Docker image
-  #       run: docker build -f php/${{ env.docker_tag }}/buster/Dockerfile -t ${{ env.docker_registry }}/${{ env.docker_repo }}:${{ env.docker_tag }}-buster-node .
-        
-  #     - name: Push tag ${{ env.docker_tag }} to DockerHub
-  #       run: docker push ${{ env.docker_registry }}/${{ env.docker_repo }}:${{ env.docker_tag }}-buster-node
+      - name: Build the Docker image
+        run: docker build -f php/${{ env.docker_tag }}/buster/Dockerfile -t ${{ env.docker_registry }}/${{ env.docker_repo }}:${{ env.docker_tag }}-buster-node10 .
+      
+      - name: Push tag ${{ env.docker_tag }} to DockerHub
+        run: docker push ${{ env.docker_registry }}/${{ env.docker_repo }}:${{ env.docker_tag }}-buster-node10
