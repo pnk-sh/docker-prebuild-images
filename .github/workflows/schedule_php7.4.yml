@@ -76,7 +76,7 @@ jobs:
             password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build the Docker image
-        run: docker build -f php/${{ env.docker_tag }}/buster/Dockerfile -t ${{ env.docker_registry }}/${{ env.docker_repo }}:${{ env.docker_tag }}-buster-node10 .
+        run: docker build -f php/${{ env.docker_tag }}/buster-node10/Dockerfile -t ${{ env.docker_registry }}/${{ env.docker_repo }}:${{ env.docker_tag }}-buster-node10 .
       
       - name: Push tag ${{ env.docker_tag }} to DockerHub
         run: docker push ${{ env.docker_registry }}/${{ env.docker_repo }}:${{ env.docker_tag }}-buster-node10
