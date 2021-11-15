@@ -25,6 +25,8 @@ COPY ./php/deploy-files/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY ./php/deploy-files/nginx/sites/ /etc/nginx/sites-available
 COPY ./php/deploy-files/supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY ./php/deploy-files/php-fpm/www.conf /usr/local/etc/php-fpm.d/www.conf
+COPY ./php/deploy-files/php-fpm/www1.conf /usr/local/etc/php-fpm.d/www1.conf
+COPY ./php/deploy-files/php-fpm/www2.conf /usr/local/etc/php-fpm.d/www2.conf
 COPY ./php/deploy-files/php-fpm/php.ini /usr/local/etc/php/php.ini
 
 
